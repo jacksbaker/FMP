@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public GameObject enemy;
+
+    public float waitTime = 0.2f;
     //public GameObject hitEffect;
 
     // Start is called before the first frame update
@@ -33,6 +35,22 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.tag != "Enemy")
         {
             Destroy(gameObject);
+        }
+
+        else
+        {
+
+            if (waitTime > 0)
+            {
+                waitTime -= Time.deltaTime;
+            }
+            
+            
+            if(waitTime < 0)
+            {
+                waitTime = 0;
+                Destroy(gameObject);
+            }
         }
             
     }
