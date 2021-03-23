@@ -4,23 +4,36 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
+    public GameObject enemy;
     //public GameObject hitEffect;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    }
+    //void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.gameObject.tag == "Enemy")
+    //    {
+    //        Destroy(other);
+    //    }
+
+
+    //}
+
+    void OnCollisionEnter2D(Collision2D other)
     {
-        Destroy(gameObject);
+        if (other.gameObject.tag != "Enemy")
+        {
+            Destroy(gameObject);
+        }
+            
     }
 }
