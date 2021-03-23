@@ -7,6 +7,9 @@ public class Bullet : MonoBehaviour
     public GameObject enemy;
 
     public float waitTime = 0.2f;
+
+    public GameObject hitBox;
+
     //public GameObject hitEffect;
 
     // Start is called before the first frame update
@@ -32,26 +35,19 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag != "Enemy")
-        {
-            Destroy(gameObject);
-        }
+        //if (other.gameObject.tag != "Enemy")
+        //{
+        //    Destroy(gameObject);
+       
+        //}
+        Destroy(gameObject);
 
-        else
-        {
+        //if(other.gameObject.tag == "hitBox")
+        //{
+        //    Destroy(gameObject);
+        //}
 
-            if (waitTime > 0)
-            {
-                waitTime -= Time.deltaTime;
-            }
-            
-            
-            if(waitTime < 0)
-            {
-                waitTime = 0;
-                Destroy(gameObject);
-            }
-        }
+       
             
     }
 }

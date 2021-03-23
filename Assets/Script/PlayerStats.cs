@@ -34,11 +34,11 @@ public class PlayerStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentExp >= toLevelUp[currentLevel])
-        {
-            //currentLevel++;
+        //if (currentExp >= toLevelUp[currentLevel])
+        //{
+        //    //currentLevel++;
           
-        }
+        //}
     }
 
     public void AddExperince(int experienceToAdd)
