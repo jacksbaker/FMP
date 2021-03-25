@@ -32,4 +32,12 @@ public class EnemyHealthManager : MonoBehaviour
     {
         CurrentHealth = MaxHealth;
     }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Ship")
+        {
+            Destroy(gameObject);
+        }
+    }
 }

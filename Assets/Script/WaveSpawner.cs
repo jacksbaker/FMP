@@ -21,10 +21,12 @@ public class WaveSpawner : MonoBehaviour
 
     public Transform[] spawnPoints;
 
-    private float searchCountdown = 1f;
+    public float searchCountdown = 1f;
 
     public float timeBetweenWaves = 5f;
     public float waveCountdown;
+
+    private static bool shipExists;
 
     private SpawnState state = SpawnState.COUNTING;
 
@@ -38,71 +40,86 @@ public class WaveSpawner : MonoBehaviour
             Debug.LogError("No spawn points referenced.");
         }
         waveCountdown = timeBetweenWaves;
+
+        shipExists = true;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if(state == SpawnState.WAITING)
+    {   
+        if(GameObject.FindGameObjectWithTag("Ship"))
         {
-            if(!EnemyIsAlive())
+            if (state == SpawnState.WAITING)
             {
-                WaveCompleted();
-                
+                if (!EnemyIsAlive())
+                {
+                    Debug.Log("No enemies!");
+                    WaveCompleted();
+
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            if (waveCountdown < -0)
+            {
+                if (state != SpawnState.SPAWNING)
+                {
+                    StartCoroutine(SpawnWave(waves[nextWave]));
+                }
             }
             else
             {
-                return;
+                waveCountdown -= Time.deltaTime;
             }
         }
-
-        if(waveCountdown <- 0)
+        if(GameObject.FindGameObjectWithTag("Ship") == null)
         {
-            if(state != SpawnState.SPAWNING)
+            Debug.Log("No ship");
+            if(GameObject.FindGameObjectWithTag("Enemy"))
             {
-                StartCoroutine(SpawnWave( waves[nextWave]));
+                Destroy(gameObject);
             }
         }
-        else
-        {
-            waveCountdown -= Time.deltaTime;
-        }
+        
     }
 
         void WaveCompleted()
         {
-        Debug.Log("Wave Completed!");
+            Debug.Log("Wave Completed!");
 
-        state = SpawnState.COUNTING;
-        waveCountdown = timeBetweenWaves;
+            state = SpawnState.COUNTING;
+            waveCountdown = timeBetweenWaves;
 
-        if(nextWave +1 > waves.Length - 1 )
-        {
-            nextWave = 0;
-            Debug.Log ("ALL WAVES COMPLETED!");
-        }
-        else
-        {
-            nextWave++;
-        }
-        
-
+            if(nextWave + 1 > waves.Length - 1 )
+            {
+                nextWave = 0;
+                Debug.Log ("ALL WAVES COMPLETED!");
+            }
+            else
+            {
+                nextWave++;
+            }
+                
+            
         
         }
 
         bool EnemyIsAlive()
         {
-            searchCountdown -= Time.deltaTime;
-            if (searchCountdown <-0f)
+        searchCountdown -= Time.deltaTime;
+        if (searchCountdown < -0f)
+        {
+            searchCountdown = 1f;
+            if(GameObject.FindGameObjectWithTag("Enemy") == null)
             {
-                searchCountdown = 1f; 
-                if (GameObject.FindGameObjectsWithTag("Enemy") == null)
-                {
-                    return false;
-                }
+                return false;
+            }
         }
         return true;
-    }
+        }
 
         IEnumerator SpawnWave(Wave _wave)
         {
