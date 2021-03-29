@@ -5,10 +5,10 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
 
-    private Transform target;
+    public Transform target;
     public float range = 15f;
 
-    public string EnemyTag = "Enemy";
+    public string enemyTag = "Enemy";
 
     public Transform partToRotate;
 
@@ -19,13 +19,13 @@ public class Turret : MonoBehaviour
     }
     void UpdateTarget ()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(EnemyTag);
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
 
         foreach (GameObject enemy in enemies)
         {
-            float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
+            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
             if(distanceToEnemy < shortestDistance)
             {
                 shortestDistance = distanceToEnemy;
@@ -47,14 +47,13 @@ public class Turret : MonoBehaviour
     void Update()
     {
         if(target == null)
-        {
             return;
-        }
+        
 
-        Vector2 dir = target.position - target.position; ;
+        Vector3 dir = target.position - target.position; 
         Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector2 rotation = lookRotation.eulerAngles;
-        partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        Vector3 rotation = lookRotation.eulerAngles;
+        partToRotate.rotation = Quaternion.Euler(0f, 0f, rotation.z);
 
     }
 
