@@ -10,19 +10,27 @@ public class Shooting : MonoBehaviour
 
     public float bulletForce = 20f;
 
+    public float waitTime;
+    public float resetWaitTime;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        resetWaitTime = waitTime;
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+
+        waitTime = waitTime - Time.deltaTime;
+        if (Input.GetMouseButtonDown(0) && waitTime <= 0)
         {
-            Shoot();
+           Shoot();
+           waitTime = resetWaitTime;
         }
     }
 
