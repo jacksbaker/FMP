@@ -9,7 +9,7 @@ public class WaveSpawner : MonoBehaviour
     [System.Serializable]
     public class Wave
     {
-        public string name;
+        //public string name;
         public Transform enemy;
         public int count;
         public float rate;
@@ -53,7 +53,7 @@ public class WaveSpawner : MonoBehaviour
             {
                 if (!EnemyIsAlive())
                 {
-                    Debug.Log("No enemies!");
+                    //Debug.Log("No enemies!");
                     WaveCompleted();
 
                 }
@@ -77,7 +77,7 @@ public class WaveSpawner : MonoBehaviour
         }
         if(GameObject.FindGameObjectWithTag("Ship") == null)
         {
-            Debug.Log("No ship");
+            //Debug.Log("No ship");
             if(GameObject.FindGameObjectWithTag("Enemy"))
             {
                 Destroy(gameObject);
@@ -96,7 +96,7 @@ public class WaveSpawner : MonoBehaviour
             if(nextWave + 1 > waves.Length - 1 )
             {
                 nextWave = 0;
-                Debug.Log ("ALL WAVES COMPLETED!");
+                //Debug.Log ("ALL WAVES COMPLETED!");
             }
             else
             {
@@ -123,7 +123,7 @@ public class WaveSpawner : MonoBehaviour
 
         IEnumerator SpawnWave(Wave _wave)
         {
-            Debug.Log("Spawn Wave: " + _wave.name);
+            //Debug.Log("Spawn Wave: " + _wave.name);
             state = SpawnState.SPAWNING;
 
             for (int i = 0; i < _wave.count; i++)
@@ -137,7 +137,7 @@ public class WaveSpawner : MonoBehaviour
         }
     void SpawnEnemy (Transform _enemy)
     {
-        Debug.Log("Spawing Enemy: " + _enemy.name);
+        //Debug.Log("Spawing Enemy: " + _enemy.name);
 
         Transform _sp = spawnPoints[Random.Range(0, spawnPoints.Length)];
         Instantiate(_enemy, _sp.position, _sp.rotation);
